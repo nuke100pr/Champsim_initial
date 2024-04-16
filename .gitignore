@@ -1,0 +1,12 @@
+.vscode/
+
+inc/champsim.h.bak
+
+bin/
+obj/
+
+results_1M/
+results_10M/
+results_20M/
+
+dpc3_traces/
