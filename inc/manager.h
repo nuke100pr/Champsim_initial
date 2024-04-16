@@ -38,7 +38,7 @@ class MANAGER
             if (i < num_sets / 2)
             {
                 // update set type
-                set_type[temperature[i].first] = (i < num_sets / 16) ? VERY_HOT : HOT;
+                set_type[temperature[i].first] = (i < num_sets / 32) ? VERY_HOT : HOT;
 
                 uint32_t helper_set_index = num_sets - i - 1;
 
@@ -51,7 +51,7 @@ class MANAGER
 
             // Give 25% blocks of cold sets to hot sets
             // and update lru values
-            if (i >= num_sets / 2 && i < (num_sets * 3) / 4)
+            if (i >= num_sets / 2 && i < (num_sets * 8) / 10)
             {
                 // update set type
                 set_type[temperature[i].first] = COLD;
@@ -62,7 +62,7 @@ class MANAGER
                     block[temperature[i].first][way].lru = way + num_ways;
                 }
 
-                for (uint32_t way = num_ways / 4; way < num_ways; way++)
+                for (uint32_t way = num_ways / 16; way < num_ways; way++)
                 {
                     block[temperature[i].first][way].lru = way - (num_ways / 4);
                 }
@@ -70,18 +70,18 @@ class MANAGER
 
             // Give 50% blocks of very cold sets to very hot sets
             // and update lru values
-            if (i >= (num_sets * 3) / 4 && i < num_sets)
+            if (i >= (num_sets * 8) / 10 && i < num_sets)
             {
                 // update set type
                 set_type[temperature[i].first] = VERY_COLD;
 
-                for (uint32_t way = 0; way < num_ways / 4; way++)
+                for (uint32_t way = 0; way < num_ways / 32; way++)
                 {
                     block[temperature[i].first][way].alien = 1;
                     block[temperature[i].first][way].lru = way + num_ways;
                 }
 
-                for (uint32_t way = num_ways / 4; way < num_ways; way++)
+                for (uint32_t way = num_ways / 32; way < num_ways; way++)
                 {
                     block[temperature[i].first][way].lru = way - (num_ways / 2);
                 }
@@ -95,8 +95,8 @@ public:
     {
         if (warmup_state) // check warmup state
         {
-            
-            temperature[set].second = temperature[set].second +1;
+
+            temperature[set].second = temperature[set].second + 1;
 
             if (warmup_complete[cpu])
             {
