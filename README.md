@@ -34,9 +34,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 **Project Team**:  
-Architectural Alchemist  
-Cache Conjurer  
-IPC Enthusiast  
+Prakhar Maurya
+Shardul Kiran Deo 
+Madhu
 
 ---
 
